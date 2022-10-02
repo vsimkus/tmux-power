@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 #===============================================================================
-#   Author: Wenxuan
-#    Email: wenxuangm@gmail.com
-#  Created: 2018-04-05 17:37
+#    Author: Wenxuan
+#     Email: wenxuangm@gmail.com
+#   Created: 2018-04-05 17:37
+#===============================================================================
+#
+# Forked by: vsimkus
+#      Date: 2022-10-02
+#
 #===============================================================================
 
 # $1: option
@@ -119,9 +124,9 @@ tmux_set status-left "$LS"
 tmux_set status-right-bg "$G04"
 tmux_set status-right-fg "G12"
 tmux_set status-right-length 150
-RS="#[fg=$G06]$left_arrow_icon#[fg=$TC,bg=$G06] $time_icon $time_format #[fg=$TC,bg=$G06]$left_arrow_icon#[fg=$G04,bg=$TC] $date_icon $date_format "
+RS="#[fg=$TC,bg=$G06] $time_icon $time_format #[fg=$TC,bg=$G06]$left_arrow_icon#[fg=$G04,bg=$TC] $date_icon $date_format "
 if "$show_download_speed"; then
-    RS="#[fg=$G05,bg=$BG]$left_arrow_icon#[fg=$TC,bg=$G05] $download_speed_icon #{download_speed} $RS"
+    RS="#[fg=$G05,bg=$BG]$left_arrow_icon#[fg=$TC,bg=$G05] $download_speed_icon #{download_speed} #[fg=$G06,bg=$G05]$left_arrow_icon$RS"
 fi
 if "$show_web_reachable"; then
     RS=" #{web_reachable_status} $RS"
@@ -132,17 +137,17 @@ fi
 tmux_set status-right "$RS"
 
 # Window status
-tmux_set window-status-format " #I:#W#F "
+tmux_set window-status-format "#{?window_activity_flag,#[blink]#[fg=$BG]#[bg=$FG],} #I:#W#F "
 tmux_set window-status-current-format "#[fg=$BG,bg=$G06]$right_arrow_icon#[fg=$TC,bold] #I:#W#F #[fg=$G06,bg=$BG,nobold]$right_arrow_icon"
 
 # Window separator
 tmux_set window-status-separator ""
 
 # Window status alignment
-tmux_set status-justify centre
+tmux_set status-justify left
 
 # Current window status
-tmux_set window-status-current-statys "fg=$TC,bg=$BG"
+tmux_set window-status-current-style "fg=$TC,bg=$BG"
 
 # Pane border
 tmux_set pane-border-style "fg=$G07,bg=default"
